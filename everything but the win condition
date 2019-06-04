@@ -1,0 +1,111 @@
+import java.util.Random;
+//THIS DOES NOT HAVE THE WIN CONDITION
+
+public class HelloWorld
+{
+  public static void main(String[] args)
+  {
+    System.out.println("Welcome! Let's play:");
+    
+    boolean isTurn = true;
+    String[][] board = createBoard();
+   	
+	
+    printBoard(board);
+    play(board);
+    //changeValue(board);
+    //printBoard(board);
+  }
+  
+  
+  public static void play(String[][] board)
+  {
+    String currentPlayer = "!!!!!";
+    
+    String playerX = "  X  ";
+    String playerO = "  O  ";
+    
+    boolean win = false;
+    int i = 0;
+    System.out.print(i + "" + win);
+	
+    while(win==false)
+    {
+      i++;
+      if(i==5)
+      {
+        win=true;
+      }
+      if(i%2 == 0)
+      {
+        currentPlayer = playerX;
+      }
+      if(i%2 != 0)
+      {
+        currentPlayer = playerO;
+      }
+      changeValue(board, currentPlayer);
+      printBoard(board);
+    }
+    
+
+    
+  }
+  
+  
+  public static String chooseTile()
+  {
+    Random random = new Random();
+    //generates a number between 0 and 2
+    return (random.nextInt(3) +""+ random.nextInt(3));
+    
+  }
+  
+  public static void changeValue(String[][] board, String currentPlayer)
+  {
+    String tile = chooseTile();
+    while(tile.contains("X") || tile.contains ("O"))
+    {
+      tile = chooseTile();
+    }
+    int x = Character.getNumericValue(tile.charAt(0));
+    int y = Character.getNumericValue(tile.charAt(1));
+    
+    board[x][y] = currentPlayer; 
+    
+  }
+  
+  
+  
+  public static String[][] createBoard()
+  {    
+    String[][] board = new String[3][3];
+ 
+    for(int x = 0; x < 3; x++)
+    {
+        for(int y = 0; y < 3; y++)
+        {
+            board[x][y] = ("("+x+","+y+")");
+        }
+    }
+    return board;
+  }
+  
+  public static void printBoard(String[][] board)
+  {
+    System.out.print("\n===========================\n");
+    
+  	for(int x = 0; x < 3; x++)
+    {
+      	if(x>0)
+      		System.out.print("\n\n");
+        for(int y = 0; y < 3; y++)
+        {
+            System.out.print(board[x][y] + "    ");
+        }
+    }
+  }
+  
+  
+  
+}
